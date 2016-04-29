@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Simple Map</title>
+    <meta name="viewport" content="initial-scale=1.0">
+    <meta charset="utf-8">
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?libraries=places&callback=initMap" async defer></script>
+    <script src="script.js" defer></script>
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+        #map {
+            height: 100%;
+            width: 600px;
+            max-height: 600px;
+        }
+        .inputs {
+            position: absolute;
+            left: 600px;
+            top: 0;
+            width: 400px;
+        }
+
+        .floating-panel {
+            position: relative;
+            top: 10px;
+            left: 20px;
+            z-index: 5;
+            background-color: #FFF;
+            padding: 5px;
+            border: 1px solid #999;
+            text-align: center;
+            font-family: 'Roboto','sans-serif';
+            line-height: 30px;
+            padding-left: 10px;
+        }
+    </style>
+</head>
+<body>
+<div class="inputs clearfix">
+    <div class="floating-panel">
+        <input id="address" type="textbox" value="Sydney, NSW">
+        <input id="submitAddress" type="button" value="Geocode"> <br/>
+        <span id="latLngOut"></span>
+    </div>
+    <div class="floating-panel">
+        <input id="latlng" type="text" value="40.714224,-73.961452">
+        <input id="submitLatLng" type="button" value="Reverse Geocode"> <br/>
+        <span id="addressOut"></span>
+    </div>
+</div>
+<div id="map"></div>
+
+</body>
+</html>
