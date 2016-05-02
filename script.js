@@ -12,10 +12,10 @@ function initMap() {
     autocomplete.bindTo('bounds', map);
 
 
-    start = {lat: -34.397, lng: 150.644};
-    start = new google.maps.LatLng(-34.397, 150.644);
-    destination = {lat: -33.6, lng: 149.644};
-    destination = new google.maps.LatLng(-33.6, 149.644);
+    start = {lat: -34.39744444, lng: 150.21344};
+    //start = new google.maps.LatLng(-34.397, 150.644);
+    destination = {lat: -33.6112321, lng: 149.64412344433};
+    //destination = new google.maps.LatLng(-33.6, 149.644);
     // marker 1 represents the current position
     marker1 = new google.maps.Marker({
         map: map,
@@ -35,6 +35,12 @@ function initMap() {
         position: destination
     });
 
+    // Initialize the directions display
+    directionsDisplay = new google.maps.DirectionsRenderer();
+    directionsDisplay.setMap(map);
+    // Initialize the directions service
+    directionsService = new google.maps.DirectionsService();
+
     var contentString = "<input type=\"button\" value=\"Get Directions\" onclick=\"computeDirections()\" />";
     var infowindow = new google.maps.InfoWindow({
         content: contentString
@@ -51,18 +57,12 @@ function initMap() {
     document.getElementById('submitLatLng').addEventListener('click', function() {
         geocodeLatLng(geocoder);
     });
-
-    // Initialize the directions display
-    directionsDisplay = new google.maps.DirectionsRenderer();
-    directionsDisplay.setMap(map);
-    // Initialize the directions service
-    directionsService = new google.maps.DirectionsService();
-
 }
 
 // Get the directions
 function computeDirections() {
-
+    // {lat: -34.39744444, lng: 150.21344}
+    // {lat: -33.6112321, lng: 149.64412344433};
     var request = {
         origin: start,
         destination: destination,
@@ -72,10 +72,21 @@ function computeDirections() {
     directionsService.route(request, function(response, status) {
         if (status == google.maps.DirectionsStatus.OK) {
             directionsDisplay.setDirections(response);
+            directionsDisplay.setOptions( { suppressMarkers: true, preserveViewport: true } );
+            showDirections(response);
         } else {
             alert('Error generating directions');
         }
     });
+}
+
+function showDirections(response) {
+    var myRoute = response.routes[0];
+    var txtDir = '<h1> Directions </h1>';
+    for (var i=0; i<myRoute.legs[0].steps.length; i++) {
+        txtDir += myRoute.legs[0].steps[i].instructions+"<br />";
+    }
+    document.getElementById('directions').innerHTML = txtDir;
 }
 
 function geocodeLatLng(geocoder) {

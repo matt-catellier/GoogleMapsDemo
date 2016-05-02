@@ -45,6 +45,21 @@
             line-height: 30px;
             padding-left: 10px;
         }
+
+        #directions {
+            position: relative;
+            top: 10px;
+            left: 20px;
+            z-index: 5;
+            background-color: #FFF;
+            padding: 5px;
+            border: 1px solid #999;
+            font-family: 'Roboto','sans-serif';
+            line-height: 30px;
+            padding-left: 10px;
+            height: 500px;
+            overflow-y: scroll;
+        }
     </style>
 </head>
 <body>
@@ -59,6 +74,7 @@
         <input id="submitLatLng" type="button" value="Reverse Geocode"> <br/>
         <span id="addressOut"></span>
     </div>
+    <div id="directions"><h1>Directions</h1></div>
 </div>
 <div id="map"></div>
 
