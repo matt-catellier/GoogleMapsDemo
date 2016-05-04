@@ -19,7 +19,6 @@ function initMap() {
     // marker 1 represents the current position
     marker1 = new google.maps.Marker({
         map: map,
-        draggable: true,
         animation: google.maps.Animation.DROP,
         position: start
     });
@@ -33,6 +32,14 @@ function initMap() {
         draggable: true,
         animation: google.maps.Animation.DROP,
         position: destination
+    });
+
+    marker2.addListener('drag', function() {
+        var lat = marker2.position.lat()
+        var lng = marker2.position.lng()
+        document.getElementById('lat').value = lat;
+        document.getElementById('lng').value = lng;
+        destination = {lat: lat, lng: lng}
     });
 
     // Initialize the directions display
@@ -82,7 +89,7 @@ function computeDirections() {
 
 function showDirections(response) {
     var myRoute = response.routes[0];
-    var txtDir = '<h1> Directions </h1>';
+    var txtDir = '';
     for (var i=0; i<myRoute.legs[0].steps.length; i++) {
         txtDir += myRoute.legs[0].steps[i].instructions+"<br />";
     }
@@ -96,7 +103,7 @@ function geocodeLatLng(geocoder) {
     geocoder.geocode({'location': latlng}, function(results, status) {
         if (status === google.maps.GeocoderStatus.OK) {
             if (results[1]) {
-                document.getElementById('addressOut').innerHTML = results[1].formatted_address;
+                document.getElementById('addressOut').value = results[1].formatted_address;
             } else {
                 window.alert('No results found');
             }
@@ -111,7 +118,8 @@ function geocodeAddress(geocoder, resultsMap) {
     geocoder.geocode({'address': address}, function (results, status) {
         if (status === google.maps.GeocoderStatus.OK) {
             // resultsMap.setCenter(results[0].geometry.location);
-            document.getElementById('latLngOut').innerHTML = results[0].geometry.location;
+            document.getElementById('lat').value = results[0].geometry.location.lat();
+            document.getElementById('lng').value = results[0].geometry.location.lng();
         } else {
             alert('Geocode was not successful for the following reason: ' + status);
         }

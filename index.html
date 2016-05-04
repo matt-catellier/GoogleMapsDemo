@@ -46,7 +46,7 @@
             padding-left: 10px;
         }
 
-        #directions {
+        #directions-panel {
             position: relative;
             top: 10px;
             left: 20px;
@@ -60,21 +60,37 @@
             height: 500px;
             overflow-y: scroll;
         }
+        input[type="text"] {
+            width: 110px;
+        }
+
+        #addressOut {
+            float: right;
+            width: 180px;
+            margin-right: 10px;
+            margin-top: 20px;
+        }
     </style>
 </head>
 <body>
 <div class="inputs clearfix">
     <div class="floating-panel">
-        <input id="address" type="textbox" value="Sydney, NSW">
-        <input id="submitAddress" type="button" value="Geocode"> <br/>
-        <span id="latLngOut"></span>
+        <input id="address" type="text" value="Sydney, NSW">
+        <input id="submitAddress" type="button" value="Geocode">
+        <input id="latlng" type="text" value="40.714224,-73.961452">
+        <input id="submitLatLng" type="button" value="Reverse">
+
     </div>
     <div class="floating-panel">
-        <input id="latlng" type="text" value="40.714224,-73.961452">
-        <input id="submitLatLng" type="button" value="Reverse Geocode"> <br/>
-        <span id="addressOut"></span>
+
+        <input id="lat" type="text">
+        <input id="lng" type="text">
     </div>
-    <div id="directions"><h1>Directions</h1></div>
+    <div id="directions-panel">
+        <input id="addressOut" type="text">
+        <h1>Directions</h1>
+        <div id="directions"></div>
+    </div>
 </div>
 <div id="map"></div>
 
